@@ -102,19 +102,18 @@ $$T_{\text{hash}} = \Phi(NNS) \times \Delta I(PT) \times \mathcal{C}(W, IR, RF) 
 
 #### 6. リポジトリ構成（二層アーキテクチャ）
 本リポジトリは、公開されるオープンなプロトコル仕様（Tier 1）と、非公開のキャリブレーション中枢（Tier 2）を明確に分離している。
-
 * **Tier 1 — 公開プロトコル仕様（本リポジトリ / MITライセンス）：**
-  * `README.en.md` / `README.ja.md`: 基本思想、構造モデル、および境界条件の定義。
-  * `docs/01_architecture.en.md` / `.ja.md`: TFAパイプライン詳細、Tier 1〜3定義、および敵対的攻撃への防御構造。
-  * `docs/02_schema_api.en.md` / `.ja.md`: 標準JSONスキーマ（Trust-Hash Certificate）および Validation API 仕様。
-  * `docs/03_zkp_lineage.en.md` / `.ja.md`: Merkle-DAG家系図メカニズム、Satori ZKP回路、および時間遅延ミキシング仕様。
-  * `schemas/certificate/v1.0.json`: THC-v1 の機械可読 JSON Schema 定義実体。
-  * `openapi.yaml`: Validation API および Edge Ingestion API の OpenAPI 3.1 仕様書。
-  * `examples/thc_v1_tier1_zkp.json`: THC-v1 証明書の参照サンプル実体。
-  * `ISSUES.en.md` / `.ja.md`: 未解決の工学・暗号学・法務研究課題（Issue #01 – #10）。
-  * `SECURITY.en.md` / `.ja.md`: 二層開示境界、脆弱性開示ポリシー、および機関向け Foundry アクセス規定。
-  * `CONTRIBUTING.md` / `.ja.md` および `CODE_OF_CONDUCT.md` / `.ja.md`: コントリビューションガイドおよび行動規範。
-  * `LICENSE` および `CITATION.cff`: MIT ライセンス原文および学術引用メタデータ。
+  * [`README.en.md`](./README.en.md) / [`README.ja.md`](./README.ja.md): 基本思想、構造モデル、および境界条件の定義。
+  * [`docs/01_architecture.en.md`](./docs/01_architecture.en.md) / [`.ja.md`](./docs/01_architecture.ja.md): TFAパイプライン詳細、Tier 1〜3定義、および敵対的攻撃への防御構造。
+  * [`docs/02_schema_api.en.md`](./docs/02_schema_api.en.md) / [`.ja.md`](./docs/02_schema_api.ja.md): 標準JSONスキーマ（Trust-Hash Certificate）および Validation API 仕様。
+  * [`docs/03_zkp_lineage.en.md`](./docs/03_zkp_lineage.en.md) / [`.ja.md`](./docs/03_zkp_lineage.ja.md): Merkle-DAG家系図メカニズム、Satori ZKP回路、および時間遅延ミキシング仕様。
+  * [`schemas/certificate/v1.0.json`](./schemas/certificate/v1.0.json): THC-v1 の機械可読な JSON Schema 定義実体。
+  * [`openapi.yaml`](./openapi.yaml): Validation API および エッジ摂取 API の OpenAPI 3.1 仕様書。
+  * [`examples/thc_v1_tier1_zkp.json`](./examples/thc_v1_tier1_zkp.json): THC-v1 証明書の参照サンプル実体。
+  * [`ISSUES.en.md`](./ISSUES.en.md) / [`.ja.md`](./ISSUES.ja.md): 未解決の工学・暗号学・法務研究課題（Issue #01 – #10）。
+  * [`SECURITY.en.md`](./SECURITY.en.md) / [`.ja.md`](./SECURITY.ja.md): 二層開示境界ルール、脆弱性報告ポリシー、および機関向け Foundry アクセス規定。
+  * [`CONTRIBUTING.md`](./CONTRIBUTING.md) / [`.ja.md`](./CONTRIBUTING.ja.md) & [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) / [`.ja.md`](./CODE_OF_CONDUCT.ja.md): コントリビューションガイドおよびコミュニティ行動規範。
+  * [`LICENSE`](./LICENSE) & [`CITATION.cff`](./CITATION.cff): MITライセンス全文および学術引用メタデータ。
 * **Tier 2 — Foundry Core（非公開 / 機関向けアクセス領域）：**
   * 動的異常検知の重み付け、物理交差相関の閾値行列、カナリアトラップ混入率、およびTier 1マスター署名インフラ。
 
