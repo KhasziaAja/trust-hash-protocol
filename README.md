@@ -102,19 +102,18 @@ The theoretical premise of Trust-Hash is invalidated if any of the following con
 
 #### 6. Repository Structure (Two-Tier Architecture)
 This repository separates open protocol specifications from proprietary calibration engines:
-
 * **Tier 1 — Public Protocol Specification (This Repository / MIT License):**
-  * `README.en.md` / `README.ja.md`: Core philosophy, structural model, and boundaries.
-  * `docs/01_architecture.en.md` / `.ja.md`: Detailed TFA pipeline, Tier 1–3 definitions, and adversarial defense topology.
-  * `docs/02_schema_api.en.md` / `.ja.md`: Standard JSON schema (Trust-Hash Certificate) and Validation API specifications.
-  * `docs/03_zkp_lineage.en.md` / `.ja.md`: Merkle-DAG lineage mechanics, Satori ZKP circuits, and temporal chaffing.
-  * `schemas/certificate/v1.0.json`: Machine-readable JSON Schema definition for THC-v1.
-  * `openapi.yaml`: OpenAPI 3.1 specification for the Validation and Edge Ingestion APIs.
-  * `examples/thc_v1_tier1_zkp.json`: Reference THC-v1 certificate instance.
-  * `ISSUES.en.md` / `.ja.md`: Open engineering, cryptographic, and legal research challenges (Issue #01 – #10).
-  * `SECURITY.en.md` / `.ja.md`: Two-tier boundary rules, vulnerability disclosure policy, and institutional Foundry access.
-  * `CONTRIBUTING.md` / `.ja.md` & `CODE_OF_CONDUCT.md` / `.ja.md`: Contribution guidelines and community standards.
-  * `LICENSE` & `CITATION.cff`: MIT License terms and academic citation metadata.
+  * [`README.en.md`](./README.en.md) / [`README.ja.md`](./README.ja.md): Core philosophy, structural model, and boundaries.
+  * [`docs/01_architecture.en.md`](./docs/01_architecture.en.md) / [`.ja.md`](./docs/01_architecture.ja.md): Detailed TFA pipeline, Tier 1–3 definitions, and adversarial defense topology.
+  * [`docs/02_schema_api.en.md`](./docs/02_schema_api.en.md) / [`.ja.md`](./docs/02_schema_api.ja.md): Standard JSON schema (Trust-Hash Certificate) and Validation API specifications.
+  * [`docs/03_zkp_lineage.en.md`](./docs/03_zkp_lineage.en.md) / [`.ja.md`](./docs/03_zkp_lineage.ja.md): Merkle-DAG lineage mechanics, Satori ZKP circuits, and temporal chaffing.
+  * [`schemas/certificate/v1.0.json`](./schemas/certificate/v1.0.json): Machine-readable JSON Schema definition for THC-v1.
+  * [`openapi.yaml`](./openapi.yaml): OpenAPI 3.1 specification for the Validation and Edge Ingestion APIs.
+  * [`examples/thc_v1_tier1_zkp.json`](./examples/thc_v1_tier1_zkp.json): Reference THC-v1 certificate instance.
+  * [`ISSUES.en.md`](./ISSUES.en.md) / [`.ja.md`](./ISSUES.ja.md): Open engineering, cryptographic, and legal research challenges (Issue #01 – #10).
+  * [`SECURITY.en.md`](./SECURITY.en.md) / [`.ja.md`](./SECURITY.ja.md): Two-tier boundary rules, vulnerability disclosure policy, and institutional Foundry access.
+  * [`CONTRIBUTING.md`](./CONTRIBUTING.md) / [`.ja.md`](./CONTRIBUTING.ja.md) & [`CODE_OF_CONDUCT.md`](./CODE_OF_CONDUCT.md) / [`.ja.md`](./CODE_OF_CONDUCT.ja.md): Contribution guidelines and community standards.
+  * [`LICENSE`](./LICENSE) & [`CITATION.cff`](./CITATION.cff): MIT License terms and academic citation metadata.
 * **Tier 2 — Foundry Core (Private / Institutional Access):**
   * Dynamic anomaly weights, cross-correlation thresholds, canary-trap injection rates, and Tier 1 master signing infrastructure.
 
