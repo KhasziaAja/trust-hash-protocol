@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you reference or build upon the Trust-Hash Protocol specification in academic or technical work, please cite it using the metadata below."
+title: "Trust-Hash Protocol: A Decentralized Data Provenance and Thermodynamic Distillation Protocol"
+version: 1.0.0
+date-released: 2026-11-22
+license: MIT
+repository-code: "https://github.com/trust-hash/trust-hash-protocol"
+keywords:
+  - data-provenance
+  - model-collapse
+  - zero-knowledge-proofs
+  - merkle-dag
+  - trusted-execution-environment
+  - thermodynamic-verification
+authors:
+  - name: "Trust-Hash Protocol Stewardship"

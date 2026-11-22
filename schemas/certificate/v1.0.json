@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://trust-hash.org/schemas/certificate/v1.0.json",
+  "title": "Trust-Hash Certificate (THC-v1)",
+  "description": "Deterministic provenance and thermodynamic distillation attestation manifest for the Trust-Hash Protocol.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "protocol_version",
+    "certificate_id",
+    "issued_at",
+    "assurance_tier",
+    "payload_binding",
+    "tfa_attestation",
+    "lineage_graph",
+    "issuer_signature"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "const": "https://trust-hash.org/schemas/certificate/v1.0.json"
+    },
+    "protocol_version": {
+      "type": "string",
+      "pattern": "^1\\.0\\.[0-9]+$"
+    },
+    "certificate_id": {
+      "type": "string",
+      "pattern": "^thc:sha256:[a-f0-9]{64}$"
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "assurance_tier": {
+      "type": "string",
+      "enum": [
+        "TIER_1_ANCHOR",
+        "TIER_2_VERIFIED",
+        "TIER_3_ENTRY"
+      ]
+    },
+    "payload_binding": {
+      "type": "object",
+      "required": [
+        "content_hash",
+        "domain_category",
+        "privacy_mode"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "content_hash": {
+          "type": "string",
+          "pattern": "^sha256:[a-f0-9]{64}$"
+        },
+        "domain_category": {
+          "type": "string",
+          "minLength": 1
+        },
+        "privacy_mode": {
+          "type": "string",
+          "enum": [
+            "PUBLIC_CLEAR",
+            "ZKP_SHIELDED"
+          ]
+        }
+      }
+    },
+    "tfa_attestation": {
+      "type": "object",
+      "required": [
+        "composite_trust_score",
+        "nns_naturalness",
+        "pt_causal_integrity",
+        "ao_physical_alibi"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "composite_trust_score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "nns_naturalness": {
+          "type": "object",
+          "required": ["passed"],
+          "properties": {
+            "passed": { "type": "boolean" },
+            "entropy_grade": { "type": "string" }
+          }
+        },
+        "pt_causal_integrity": {
+          "type": "object",
+          "required": ["passed"],
+          "properties": {
+            "passed": { "type": "boolean" },
+            "iteration_depth": { "type": "integer", "minimum": 0 },
+            "frontier_expansion": { "type": "boolean" }
+          }
+        },
+        "ao_physical_alibi": {
+          "type": "object",
+          "required": ["passed"],
+          "properties": {
+            "passed": { "type": "boolean" },
+            "tee_attestation_type": { "type": "string" },
+            "cross_modal_sync": {
+              "type": "string",
+              "enum": ["VERIFIED", "NOT_APPLICABLE", "FAILED"]
+            }
+          }
+        }
+      }
+    },
+    "lineage_graph": {
+      "type": "object",
+      "required": [
+        "merkle_dag_root",
+        "parent_certificates",
+        "rollup_batch_id"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "merkle_dag_root": {
+          "type": "string",
+          "minLength": 1
+        },
+        "parent_certificates": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^thc:sha256:[a-f0-9]{64}$"
+          }
+        },
+        "rollup_batch_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "zkp_proof": {
+      "type": "object",
+      "required": [
+        "circuit_id",
+        "proof_blob",
+        "public_inputs"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "circuit_id": { "type": "string" },
+        "proof_blob": { "type": "string" },
+        "public_inputs": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "issuer_signature": {
+      "type": "object",
+      "required": [
+        "node_id",
+        "algorithm",
+        "signature"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "node_id": { "type": "string" },
+        "algorithm": { "type": "string" },
+        "signature": { "type": "string" }
+      }
+    }
+  }
+}

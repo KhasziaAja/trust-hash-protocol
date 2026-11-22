@@ -1,0 +1,49 @@
+{
+  "$schema": "https://trust-hash.org/schemas/certificate/v1.0.json",
+  "protocol_version": "1.0.0",
+  "certificate_id": "thc:sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+  "issued_at": "2026-11-21T11:30:00Z",
+  "assurance_tier": "TIER_1_ANCHOR",
+  "payload_binding": {
+    "content_hash": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "domain_category": "R_AND_D_EXPERIMENTAL_LOG",
+    "privacy_mode": "ZKP_SHIELDED"
+  },
+  "tfa_attestation": {
+    "composite_trust_score": 0.942,
+    "nns_naturalness": {
+      "passed": true,
+      "entropy_grade": "HIGH_THERMAL_NOISE"
+    },
+    "pt_causal_integrity": {
+      "passed": true,
+      "iteration_depth": 47,
+      "frontier_expansion": true
+    },
+    "ao_physical_alibi": {
+      "passed": true,
+      "tee_attestation_type": "HARDWARE_ROOTED_SGX_V2",
+      "cross_modal_sync": "VERIFIED"
+    }
+  },
+  "lineage_graph": {
+    "merkle_dag_root": "bafybeigdyrzt5sfp7udm7hu76uh7y26nf3efuylqabf3oclgtqy55fbzdi",
+    "parent_certificates": [
+      "thc:sha256:4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a"
+    ],
+    "rollup_batch_id": "zkrollup:epoch-89421"
+  },
+  "zkp_proof": {
+    "circuit_id": "satori-zkp-groth16-v1",
+    "proof_blob": "0x1a9f8c...e402b1",
+    "public_inputs": [
+      "0x9f86d081...",
+      "0x00000001"
+    ]
+  },
+  "issuer_signature": {
+    "node_id": "did:th:verifier:ch-zurich-04",
+    "algorithm": "Ed25519",
+    "signature": "sig:7c9e6679742540de9448e0e6f1a1a2b3..."
+  }
+}

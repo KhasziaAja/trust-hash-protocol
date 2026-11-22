@@ -1,0 +1,179 @@
+openapi: 3.1.0
+info:
+  title: Trust-Hash Protocol Validation & Ingestion API
+  version: 1.0.0
+  description: >
+    Stateless verification, recursive Merkle-DAG lineage purity auditing,
+    and edge ingestion endpoints for the Trust-Hash Protocol (TH-SPEC-02).
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://api.trust-hash.org
+    description: Production Validation Gateway
+
+paths:
+  /v1/certificates/verify:
+    post:
+      summary: Verify a Trust-Hash Certificate (THC-v1)
+      description: >
+        Validates cryptographic signature, Satori ZKP proof integrity,
+        and revocation or retroactive slashing status.
+      operationId: verifyCertificate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - certificate_id
+                - expected_content_hash
+              properties:
+                certificate_id:
+                  type: string
+                  example: "thc:sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+                expected_content_hash:
+                  type: string
+                  example: "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                min_assurance_tier:
+                  type: string
+                  enum: [TIER_1_ANCHOR, TIER_2_VERIFIED, TIER_3_ENTRY]
+                  default: TIER_2_VERIFIED
+                min_trust_score:
+                  type: number
+                  minimum: 0.0
+                  maximum: 1.0
+                  default: 0.85
+      responses:
+        "200":
+          description: Verification evaluation result
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - valid
+                  - status
+                  - assurance_tier
+                  - composite_trust_score
+                  - lineage_contamination_risk
+                  - verifier_standing
+                  - verified_at
+                properties:
+                  valid:
+                    type: boolean
+                    example: true
+                  status:
+                    type: string
+                    enum: [ACTIVE_VERIFIED, SLASHED_DOWNGRADED, REVOKED, INVALID_SIGNATURE]
+                    example: "ACTIVE_VERIFIED"
+                  assurance_tier:
+                    type: string
+                    enum: [TIER_1_ANCHOR, TIER_2_VERIFIED, TIER_3_ENTRY]
+                    example: "TIER_1_ANCHOR"
+                  composite_trust_score:
+                    type: number
+                    example: 0.942
+                  lineage_contamination_risk:
+                    type: number
+                    example: 0.0
+                  verifier_standing:
+                    type: string
+                    enum: [GOOD_STANDING, PROBATION, SLASHED]
+                    example: "GOOD_STANDING"
+                  verified_at:
+                    type: string
+                    format: date-time
+                    example: "2026-11-21T11:31:05Z"
+
+  /v1/lineage/{certificate_id}/purity:
+    get:
+      summary: Recursive Merkle-DAG Lineage Purity Audit
+      description: >
+        Traverses upstream ancestor certificates to detect retroactive downgrades
+        or synthetic contamination propagation.
+      operationId: auditLineagePurity
+      parameters:
+        - name: certificate_id
+          in: path
+          required: true
+          schema:
+            type: string
+          example: "thc:sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        - name: max_depth
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 10
+      responses:
+        "200":
+          description: Transitive lineage purity report
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - root_certificate_id
+                  - ancestors_scanned
+                  - synthetic_contamination_ratio
+                  - lowest_ancestor_tier
+                  - slashed_ancestors_detected
+                properties:
+                  root_certificate_id:
+                    type: string
+                    example: "thc:sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+                  ancestors_scanned:
+                    type: integer
+                    example: 14
+                  synthetic_contamination_ratio:
+                    type: number
+                    minimum: 0.0
+                    maximum: 1.0
+                    example: 0.0
+                  lowest_ancestor_tier:
+                    type: string
+                    enum: [TIER_1_ANCHOR, TIER_2_VERIFIED, TIER_3_ENTRY]
+                    example: "TIER_2_VERIFIED"
+                  slashed_ancestors_detected:
+                    type: boolean
+                    example: false
+
+  /v1/ingest/entry:
+    post:
+      summary: Submit Lightweight Tier 3 Entry Receipt
+      description: >
+        Establishes an immediate priority timestamp and origin metadata binding
+        (Tier 3 Entry), eligible for asynchronous upgrade to Tier 2 or Tier 1.
+      operationId: ingestTier3Entry
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - content_hash
+                - domain_category
+              properties:
+                content_hash:
+                  type: string
+                  example: "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                domain_category:
+                  type: string
+                  example: "R_AND_D_PRELIMINARY_DRAFT"
+                parent_certificates:
+                  type: array
+                  items:
+                    type: string
+                  default: []
+      responses:
+        "201":
+          description: Tier 3 Entry Certificate issued
+          content:
+            application/json:
+              schema:
+                $ref: "https://trust-hash.org/schemas/certificate/v1.0.json"
