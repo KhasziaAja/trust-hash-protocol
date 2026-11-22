@@ -4,7 +4,7 @@ title: "Trust-Hash Protocol: A Decentralized Data Provenance and Thermodynamic D
 version: 1.0.0
 date-released: 2026-11-22
 license: MIT
-repository-code: "https://github.com/trust-hash/trust-hash-protocol"
+repository-code: "https://github.com/KhasziaAja/trust-hash-protocol"
 keywords:
   - data-provenance
   - model-collapse
